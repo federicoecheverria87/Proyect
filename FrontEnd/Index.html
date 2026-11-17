@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi tienda</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!--Load Stylesheet-->
+    <link rel="stylesheet" href="Css/Colors.css">
+    <link rel="stylesheet" href="Css/Styles.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="Assets/logo.ico">
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-ts">
+            <div class="container">
+                <a class="navbar-brand" href="Index.html">
+                    <img src="Assets/logo.ico" alt="Logo" width="70" height="70"
+                        class="d-inline-block align-text-center pointer">
+                    <span class="text-primary-color">TECH STORE</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <div class="navbar-nav ms-auto">
+
+                        <a class="nav-link text-primary-color" href="Pages/Login.html">Login</a>
+                        <a class="nav-link text-primary-color" href="Pages/Register.html">Registro</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="py-5 container mt-4 container-ts bg-dark rounded-3 shadow-lg">
+            <div class="container text-center">
+                <img src="Assets/logo-tech-store-black.jpg" alt="Name" class="img-fluid mb-4 rounded-3 shadow-lg" class="logo-name">
+                <h1 class="text-primary-color">Bienvenidos !!!</h1>
+
+                <p class="lead text-primary-color">
+                    Registrate o inicia sesión para acceder a nuestra tienda en línea y descubrir una amplia gama de productos tecnológicos de alta calidad.
+                </p>
+
+                <a href="Pages/Register.html" class="btn btn-primary btn-ts-primary">
+                    Registrarme
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3 mt-auto">
+        <div class=" container">
+            <p class="mb-0">Tech Store - 2026</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+        
+    <script type="module" src="../JavaScript/pages/index.js"></script>
+</body>
+
+</html>

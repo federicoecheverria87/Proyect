@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Store</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!--Load Stylesheet-->
+    <link rel="stylesheet" href="../Css/Colors.css">
+    <link rel="stylesheet" href="../Css/Styles.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../Assets/logo.ico">
+
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-ts">
+            <div class="container">
+                <a class="navbar-brand" href="../Index.html">
+                    <img src="../Assets/logo.ico" alt="Logo" width="70" height="70"
+                        class="d-inline-block align-text-center pointer">
+                    <span class="text-secondary-color">TECH STORE</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <div class="navbar-nav ms-auto">
+                        <div class="nav-item dropdown d-none" id="adminDropdown">
+                            <a class="nav-link dropdown-toggle text-primary-color" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Administración
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end bg-dark">
+                                <li><a class="dropdown-item text-primary-color" href="Product.html">Crear Producto</a></li>
+                                <li><a class="dropdown-item text-primary-color" href="Users.html">Usuarios</a></li>
+                                <li><a class="dropdown-item text-primary-color" href="Categories.html">Categorías</a></li>
+                            </ul>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-primary-color" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img id="profile-avatar" class="profile-avatar ms-2" src="../Assets/logo.ico"
+                                    alt="Foto de perfil">
+                                <span id="profile-name" class="ms-1"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end bg-dark">
+                                <li><a class="dropdown-item text-primary-color" href="Profile.html">Mi perfil</a></li>
+                                <li><a id="logout" class="dropdown-item text-tertiary-color" href="Login.html">Log out</a></li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="py-5 container mt-4 container-ts bg-black rounded-3 shadow-lg">
+            <h2 class="text-center mb-4 text-tertiary-color">
+                Nuestros productos
+            </h2>
+
+            <div id="product-list" class="row g-4">
+                <!-- Lista de productos -->
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3 mt-auto">
+        <div class=" container">
+            <p class="mb-0">Tech Store - 2026</p>
+        </div>
+    </footer>
+
+    <div class="modal" tabindex="-1" id="modalDelete">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmacion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Desea eliminar el Producto Id : # <span id="deleteId"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="btnDelete">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script type="module" src="../JavaScript/pages/home.js"></script>
+</body>
+
+</html>

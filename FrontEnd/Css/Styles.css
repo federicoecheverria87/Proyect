@@ -1,0 +1,138 @@
+/* 1. Import the variables */
+@import url("Colors.css");
+
+/* 2. Apply the variables */
+body {
+  background-image: url("../Assets/Background.jpg");
+  background-color: var(--bg-dark);
+  color: var(--text-color);
+}
+
+body {
+  font-family: Helvetica;
+}
+
+.btn-ts-primary {
+  background-color: var(--primary-color);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.text-primary-color {
+  color: var(--primary-color);
+}
+
+.text-secondary-color {
+  color: var(--secondary-color);
+}
+
+.text-tertiary-color {
+  color: var(--tertiary-color);
+}
+
+.bg-primary-color {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary-color {
+  background-color: var(--secondary-color);
+}
+
+.bg-tertiary-color {
+  background-color: var(--tertiary-color);
+}
+
+.text-tertiary-color {
+  color: var(--tertiary-color);
+}
+
+.product-card {
+  background-color: var(--bg-light);
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/*media query for mobile devices */
+@media (max-width: 768px) {
+  .logo-name {
+    max-width: 300px;
+  }
+}
+
+/*=============== NAVBAR ==============*/
+
+.navbar-ts {
+  background-color: var(--primary-color);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1500px;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+.profile-photo-preview {
+  width: 112px;
+  height: 112px;
+}
+
+/*============= CONTAINER ============*/
+
+.container-ts {
+  width: 90%;
+  max-width: 1450px;
+  margin: auto;
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*================TOAST================*/
+
+.toast {
+  position: fixed; /*se posiciona con respecto a la pantalla */
+  bottom: 20px; /*separación de abajo*/
+  right: 20px; /*separaci{on desde la derecha */
+  padding: 15px 20px; /*espaciado interno*/
+  border-radius: 8px; /*bordes redondeados*/
+  color: white; /* color de letra*/
+  font-weight: bold; /*texto en negrita*/
+  opacity: 0; /*oculto por defecto*/
+  transform: translateY(20px); /*lo mueve hacia abajo*/
+  transition: all 0.3s ease; /*animaci{on suave*/
+  z-index: 1000; /*se asegura de estar arriba de otros elementos*/
+}
+
+/*Toast visible */
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*éxito*/
+.toast.success {
+  background-color: #28a745;
+}
+
+/*error*/
+.toast.error {
+  background-color: #dc3545;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar usuarios | Tech Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Css/Colors.css">
+    <link rel="stylesheet" href="../Css/Styles.css">
+    <link rel="icon" type="image/x-icon" href="../Assets/logo.ico">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-ts">
+            <div class="container">
+                <a class="navbar-brand" href="../Index.html">
+                    <img src="../Assets/logo.ico" alt="Logo" width="70" height="70"
+                        class="d-inline-block align-text-center pointer">
+                    <span class="text-secondary-color">TECH STORE</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+                    aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <div class="navbar-nav ms-auto">
+                        <a class="nav-link text-secondary-color" href="Home.html">Inicio</a>
+                        <a id="logout" class="nav-link text-tertiary-color" href="Login.html">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow-1">
+        <section class="py-5 container mt-4 container-ts bg-black rounded-3 shadow-lg">
+            <h1 class="text-center mb-4 text-tertiary-color">Administrar usuarios</h1>
+            <div class="table-responsive">
+                <table class="table table-dark table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col"><label class="text-primary-color">ID</label></th>
+                            <th scope="col"><label class="text-primary-color">Nombre</label></th>
+                            <th scope="col"><label class="text-primary-color">Email</label></th>
+                            <th scope="col"><label class="text-primary-color">Rol</label></th>
+                            <th scope="col"><label class="text-primary-color">Acciones</label></th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list"></tbody>
+                </table>
+            </div>
+            <p id="empty-users" class="text-center text-white d-none" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <form id="form-edit-user" novalidate>
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5 text-tertiary-color" id="editUserModalLabel">Modificar usuario</h2>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="edit-user-error" class="alert alert-danger d-none" role="alert"></div>
+                        <div class="mb-3">
+                            <label for="edit-name" class="form-label text-primary-color">Nombre</label>
+                            <input id="edit-name" name="name" class="form-control" maxlength="100" required>
+                            <div class="invalid-feedback">Ingresá el nombre.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-email" class="form-label text-primary-color">Email</label>
+                            <input id="edit-email" name="email" type="email" class="form-control" required>
+                            <div class="invalid-feedback">Ingresá un correo válido.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-role" class="form-label text-primary-color">Rol</label>
+                            <select id="edit-role" name="role" class="form-select" required>
+                                <option value="User">Usuario</option>
+                                <option value="Admin">Administrador</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-password" class="form-label text-primary-color">Nueva contraseña</label>
+                            <input id="edit-password" name="password" type="password" class="form-control"
+                                autocomplete="new-password">
+                            <div class="form-text text-white">Dejá este campo vacío para conservar la contraseña actual.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-photo" class="form-label text-primary-color">Foto de perfil</label>
+                            <input id="edit-photo" name="photo" type="file" accept="image/*" class="form-control">
+                            <div class="form-text text-white">Opcional. Si no elegís otra, se conserva la foto actual.</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button id="save-user" type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5 text-tertiary-color" id="deleteUserModalLabel">Confirmar eliminación</h2>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Querés eliminar este usuario?</p>
+                    <p id="delete-user-name" class="text-primary-color mb-0"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="confirm-delete-user" type="button" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center p-3 mt-auto">
+        <div class="container">
+            <p class="mb-0">Tech Store - 2026</p>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script type="module" src="../JavaScript/pages/users.js"></script>
+</body>
+
+</html>

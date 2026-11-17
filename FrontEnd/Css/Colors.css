@@ -1,0 +1,11 @@
+/* 1. Define the variables */
+:root {
+  --primary-color: #00E5FF;
+  --secondary-color: #FE8A1B;
+  --tertiary-color: #AE58FF;
+
+  --text-color: #0a0b0c;
+  --action-color: #AE58FF;
+  --bg-dark: #111111;
+  --bg-light: #afffff;
+}
