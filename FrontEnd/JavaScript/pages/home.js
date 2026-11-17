@@ -1,4 +1,9 @@
-import { clearSession, getUserData, setUserData, isAdmin } from "../components/session.js";
+import {
+  clearSession,
+  getUserData,
+  setUserData,
+  isAdmin,
+} from "../components/session.js";
 import {
   redirectToIndex,
   redirectToEditProduct,
@@ -15,13 +20,15 @@ import * as api from "../api/api.js";
 
 let categoriesList;
 let productList;
+let searchProducts;
+let filterCategory;
+
 const modalDelete = document.getElementById("modalDelete");
 //Initialize a new Bootstrap modal instance
 const myModal = new bootstrap.Modal(modalDelete);
 let IdToDelete = null;
 
 document.addEventListener("DOMContentLoaded", () => {
-
   if (isAdmin()) {
     document.getElementById("adminDropdown").classList.remove("d-none");
   }
@@ -36,6 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("btnDelete")
     .addEventListener("click", deleteSelectedProduct);
 
+  searchProducts = document.getElementById("search-products");
+
+  filterCategory = document.getElementById("filter-category");
+  searchProducts.addEventListener("input", filterProducts);
+  filterCategory.addEventListener("change", filterProducts);
+
   loadProfileIdentity();
   loadProducts();
 });
@@ -43,9 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
 async function loadProfileIdentity() {
   const nameElement = document.getElementById("profile-name");
   const avatarElement = document.getElementById("profile-avatar");
-  avatarElement.addEventListener("error", () => {
-    avatarElement.src = "../Assets/logo.ico";
-  }, { once: true });
+  avatarElement.addEventListener(
+    "error",
+    () => {
+      avatarElement.src = "../Assets/logo.ico";
+    },
+    { once: true },
+  );
   let user = getUserData();
 
   if (!user.name) {
@@ -73,26 +90,65 @@ async function loadProducts() {
 async function loadLists() {
   categoriesList = await apiGetCategories();
   productList = await apiGetProducts();
+  loadFilterCategories(categoriesList);
 }
 
 function loadProductsCatalog() {
   const continerProducts = document.getElementById("product-list");
   continerProducts.innerHTML = "";
 
-  productList.forEach((product) => {
-    const tarjeta = createCard(product);
+  if (productList.length === 0) {
+    const message = document.createElement("p");
+    message.className = "col-12 text-center text-tertiary-color";
+    message.textContent = "No se encontraron productos.";
+    continerProducts.append(message);
+    return;
+  } else {
+    productList.forEach((product) => {
+      const tarjeta = createCard(product);
 
-    continerProducts.append(tarjeta);
+      continerProducts.append(tarjeta);
+    });
+  }
+}
+
+function filterProducts() {
+  const searchText = searchProducts.value.trim().toLowerCase();
+  const selectedCategory = filterCategory.value;
+  const filteredProducts = productList.filter((product) => {
+    const searchableText =
+      `${product.name || ""} ${product.description || ""}`.toLowerCase();
+    const matchesSearch = searchableText.includes(searchText);
+    const matchesCategory =
+      selectedCategory === "" ||
+      String(product.categoryId) === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  const containerProducts = document.getElementById("product-list");
+  containerProducts.innerHTML = "";
+
+  if (filteredProducts.length === 0) {
+    const message = document.createElement("p");
+    message.className = "col-12 text-center text-tertiary-color";
+    message.textContent = "No se encontraron productos.";
+    containerProducts.append(message);
+    return;
+  }
+
+  filteredProducts.forEach((product) => {
+    containerProducts.append(createCard(product));
   });
 }
 
 function getCategoryName(id) {
-  const categoria = categoriesList.find(function (categoria) {
-    return categoria.id === id;
+  const category = categoriesList.find(function (cat) {
+    return cat.id === id;
   });
 
-  if (categoria) {
-    return categoria.nombre;
+  if (category) {
+    return category.name;
   }
 
   return "Sin categoría";
@@ -100,7 +156,9 @@ function getCategoryName(id) {
 
 function createCard(product) {
   const nombreCategoria = getCategoryName(product.categoryId);
-  const image = product.image? api.uploadURL + product.image : "https://placehold.co/600x400?text=Sin+imagen";
+  const image = product.image
+    ? api.uploadURL + product.image
+    : "https://placehold.co/600x400?text=Sin+imagen";
   const columna = document.createElement("div");
 
   columna.className = "col-12 col-sm-6 col-lg-4";
@@ -130,10 +188,14 @@ function createCard(product) {
             <button class="btn btn-primary mt-auto boton-producto bg-primary-color mb-2">
                 Ver producto <i class="fas fa-eye"></i>
             </button>
-            ${isAdmin() ? `
+            ${
+              isAdmin()
+                ? `
               <button class="btn btn-primary bg-secondary-color mb-2" onclick="editSelectedProduct(${product.id})">Editar <i class="fas fa-edit"></i></button>
               <button class="btn btn-danger bg-tertiary-color mb-2" onclick="showModalDelete(${product.id})">Borrar <i class="fas fa-trash"></i></button>
-            ` : ''}
+            `
+                : ""
+            }
         </div>
     </div>
 `;
@@ -171,6 +233,18 @@ async function deleteSelectedProduct() {
   }
 }
 
+// Search & Filter
+function loadFilterCategories(categories) {
+  categories.forEach(function (category) {
+    const opcion = document.createElement("option");
+
+    opcion.value = category.id;
+
+    opcion.textContent = category.name;
+
+    filterCategory.append(opcion);
+  });
+}
 
 // Expose to global so inline onclick in HTML can call them when loaded as module
 window.showModalDelete = showModalDelete;

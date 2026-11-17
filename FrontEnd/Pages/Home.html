@@ -41,9 +41,11 @@
                                 Administración
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end bg-dark">
-                                <li><a class="dropdown-item text-primary-color" href="Product.html">Crear Producto</a></li>
+                                <li><a class="dropdown-item text-primary-color" href="Product.html">Crear Producto</a>
+                                </li>
                                 <li><a class="dropdown-item text-primary-color" href="Users.html">Usuarios</a></li>
-                                <li><a class="dropdown-item text-primary-color" href="Categories.html">Categorías</a></li>
+                                <li><a class="dropdown-item text-primary-color" href="Categories.html">Categorías</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="nav-item dropdown">
@@ -55,10 +57,11 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end bg-dark">
                                 <li><a class="dropdown-item text-primary-color" href="Profile.html">Mi perfil</a></li>
-                                <li><a id="logout" class="dropdown-item text-tertiary-color" href="Login.html">Log out</a></li>
+                                <li><a id="logout" class="dropdown-item text-tertiary-color" href="Login.html">Log
+                                        out</a></li>
                             </ul>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -71,9 +74,27 @@
                 Nuestros productos
             </h2>
 
+            <div class="row g-4 mb-4">
+                <div class="col-12 col-md-8">
+                    <label for="search-products" class="form-label fw-semibold text-tertiary-color">
+                        Buscar productos
+                    </label>
+                    <input type="text" id="search-products" class="form-control" placeholder="Buscar por nombre...">
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="filter-category" class="form-label fw-semibold text-tertiary-color">
+                        Categoría
+                    </label>
+                    <select id="filter-category" class="form-select">
+                        <option value="">
+                            Todas las categorías
+                        </option>
+                    </select>
+                </div>
+            </div>
+
             <div id="product-list" class="row g-4">
                 <!-- Lista de productos -->
-
             </div>
 
         </section>
