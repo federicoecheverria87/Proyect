@@ -1,6 +1,9 @@
 import * as api from "../api/api.js";
 import { getCategories } from "../api/categories.js";
-import { getProductById, saveProduct as apiSaveProduct } from "../api/products.js";
+import {
+  getProductById,
+  saveProduct as apiSaveProduct,
+} from "../api/products.js";
 import { clearSession } from "../components/session.js";
 import { redirectToHome, redirectToIndex } from "../components/navigation.js";
 import { mostrarToast } from "../components/toast.js";
@@ -14,16 +17,23 @@ const imageHelp = document.getElementById("image-help");
 const productId = new URLSearchParams(window.location.search).get("id");
 let currentImage = "";
 
-document.getElementById("logout").addEventListener("click", (event) => {
-  event.preventDefault();
-  clearSession();
-  redirectToIndex();
+document.addEventListener("DOMContentLoaded", () => {
+  if (!isLoggedIn()) {
+    redirectToIndex();
+    return;
+  }
+
+  document.getElementById("logout").addEventListener("click", (event) => {
+    event.preventDefault();
+    clearSession();
+    redirectToIndex();
+  });
+
+  form.addEventListener("submit", saveProduct);
+  imageInput.addEventListener("change", previewSelectedImage);
+
+  initializeForm();
 });
-
-form.addEventListener("submit", saveProduct);
-imageInput.addEventListener("change", previewSelectedImage);
-
-initializeForm();
 
 async function initializeForm() {
   if (!sessionStorage.getItem("token")) {
@@ -48,12 +58,12 @@ async function initializeForm() {
 }
 
 async function cleanProductForm() {
-    if(form){
-        form.reset();
-    }
-    if(productId){
-       await loadProduct(productId);
-    }
+  if (form) {
+    form.reset();
+  }
+  if (productId) {
+    await loadProduct(productId);
+  }
 }
 
 function populateCategories(categories) {
@@ -131,7 +141,7 @@ async function saveProduct(event) {
 
   const price = Number(document.getElementById("price").value);
   const stock = Number(document.getElementById("stock").value);
-  
+
   if (
     !form.checkValidity() ||
     !Number.isFinite(price) ||
@@ -158,7 +168,6 @@ async function saveProduct(event) {
   submitButton.disabled = true;
 
   try {
-
     const result = await apiSaveProduct(formData, productId);
 
     if (result === null || result === undefined) {
@@ -171,10 +180,12 @@ async function saveProduct(event) {
       "success",
     );
     redirectToHome();
-    
   } catch (error) {
     console.error("No se pudo guardar el producto:", error);
-    mostrarToast(error.message || "Error de conexión con el servidor.", "error");
+    mostrarToast(
+      error.message || "Error de conexión con el servidor.",
+      "error",
+    );
     submitButton.disabled = false;
   }
 }

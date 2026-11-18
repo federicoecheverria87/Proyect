@@ -13,6 +13,13 @@ const editModal = new bootstrap.Modal(document.getElementById("editUserModal"));
 const deleteModal = new bootstrap.Modal(document.getElementById("deleteUserModal"));
 let selectedUserId = null;
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (!isLoggedIn()) {
+    redirectToIndex();
+    return;
+  }
+});
+
 document.getElementById("logout").addEventListener("click", (event) => {
   event.preventDefault();
   clearSession();

@@ -8,13 +8,20 @@ import { mostrarToast } from "../components/toast.js";
 const productDetail = document.getElementById("product-detail");
 const productId = new URLSearchParams(window.location.search).get("id");
 
-document.getElementById("logout").addEventListener("click", (event) => {
-  event.preventDefault();
-  clearSession();
-  redirectToIndex();
-});
+document.addEventListener("DOMContentLoaded", () => {
+  if (!isLoggedIn()) {
+    redirectToIndex();
+    return;
+  }
 
-initializeDetail();
+  document.getElementById("logout").addEventListener("click", (event) => {
+    event.preventDefault();
+    clearSession();
+    redirectToIndex();
+  });
+
+  initializeDetail();
+});
 
 async function initializeDetail() {
   if (!sessionStorage.getItem("token")) {
@@ -40,7 +47,9 @@ async function initializeDetail() {
     }
 
     const category = Array.isArray(categories)
-      ? categories.find((item) => Number(item.id) === Number(product.categoryId))
+      ? categories.find(
+          (item) => Number(item.id) === Number(product.categoryId),
+        )
       : null;
 
     renderProduct(product, category?.name || "Sin categoría");

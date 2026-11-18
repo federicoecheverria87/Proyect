@@ -29,6 +29,11 @@ const myModal = new bootstrap.Modal(modalDelete);
 let IdToDelete = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (!isLoggedIn()) {
+    redirectToIndex();
+    return;
+  }
+  
   if (isAdmin()) {
     document.getElementById("adminDropdown").classList.remove("d-none");
   }

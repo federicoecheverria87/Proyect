@@ -15,6 +15,13 @@ const errorElement = document.getElementById("profile-error");
 let previewUrl = null;
 let currentPhoto = "";
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (!isLoggedIn()) {
+    redirectToIndex();
+    return;
+  }
+});
+
 document.getElementById("logout").addEventListener("click", (event) => {
   event.preventDefault();
   clearSession();

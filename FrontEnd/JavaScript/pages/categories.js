@@ -18,6 +18,13 @@ const deleteModal = new bootstrap.Modal(
 );
 let selectedCategoryId = null;
 
+document.addEventListener("DOMContentLoaded", () => {
+  if (!isLoggedIn()) {
+    redirectToIndex();
+    return;
+  }
+});
+
 document.getElementById("logout").addEventListener("click", (event) => {
   event.preventDefault();
   clearSession();

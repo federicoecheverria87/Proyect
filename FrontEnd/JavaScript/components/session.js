@@ -6,6 +6,7 @@ export function setDataToken(token, role, user) {
   }
 }
 
+
 export function setUserData(user) {
   sessionStorage.setItem("userName", user.name || "");
   sessionStorage.setItem("userPhoto", user.photo || "");
@@ -23,6 +24,10 @@ export function clearSession() {
   sessionStorage.removeItem("rol");
   sessionStorage.removeItem("userName");
   sessionStorage.removeItem("userPhoto");
+}
+
+export function isLoggedIn() {
+  return !!sessionStorage.getItem("token");
 }
 
 export function isAdmin() {
